@@ -1,0 +1,15 @@
+{
+  "name": "@ognao/core",
+  "version": "0.1.0",
+  "description": "Oh God Not Another One - Yet another JS Framework",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Flemming Hansen",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "typescript": "5.4.5"
+  }
+}
