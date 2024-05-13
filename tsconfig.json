@@ -1,17 +1,23 @@
 {
 	"compilerOptions": {
-		"baseUrl": ".",
+		"baseUrl": "./src/index.ts",
 		"lib": [
 			"dom",
 			"ES2021"
 		],
+		"outDir": "lib",
 		"target": "es6",
-		"strict": true,
-		"noEmit": true,
+		"moduleResolution": "Bundler",
+		"declaration": true,
+		"noEmit": false,
 		"noImplicitAny": true,
+		"strict": true,
+		"typeRoots": [
+			"./node_modules/@types",
+		],
 	},
 	"exclude": [
 		"./node_modules/*",
-		"./lib/*",
+		"./lib/*"
 	]
 }

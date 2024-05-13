@@ -10,16 +10,15 @@
     }
   },
   "scripts": {
-    "build": "rollup --config",
+    "build": "tsc --project tsconfig.json",
+    "build2": "rollup --config",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Flemming Hansen",
   "license": "MIT",
   "type": "module",
   "devDependencies": {
-    "@rollup/plugin-typescript": "^11.1.6",
-    "rollup": "^4.17.2",
-    "tslib": "2.6.2",
+    "@types/node": "^20.12.11",
     "typescript": "5.4.5"
   }
 }

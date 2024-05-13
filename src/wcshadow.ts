@@ -4,11 +4,11 @@
 export class ShadowElement extends HTMLElement {
   static defaultOptions = {
     mode: "open",
-  };
+  } as ShadowRootInit;
 
   shadow: ShadowRoot;
 
-  constructor(options: ShadowRootInit) {
+  constructor(options?: ShadowRootInit) {
     super();
     this.shadow = this.attachShadow(options || ShadowElement.defaultOptions);
   }
