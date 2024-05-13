@@ -3,13 +3,23 @@
   "version": "0.1.0",
   "description": "Oh God Not Another Framework - That's right - Yet another JS Framework",
   "main": "src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/bundle.d.ts",
+      "default": "./lib/bundle.js"
+    }
+  },
   "scripts": {
+    "build": "rollup --config",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Flemming Hansen",
   "license": "MIT",
   "type": "module",
   "devDependencies": {
+    "@rollup/plugin-typescript": "^11.1.6",
+    "rollup": "^4.17.2",
+    "tslib": "2.6.2",
     "typescript": "5.4.5"
   }
 }

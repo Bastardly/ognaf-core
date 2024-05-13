@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"lib": [
+			"dom",
+			"ES2021"
+		],
+		"target": "es6",
+		"strict": true,
+		"noEmit": true,
+		"noImplicitAny": true,
+	},
+	"exclude": [
+		"./node_modules/*",
+		"./lib/*",
+	]
+}
