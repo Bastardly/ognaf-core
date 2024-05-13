@@ -1,7 +1,7 @@
 {
-  "name": "@ognao/core",
+  "name": "@ognaf/core",
   "version": "0.1.0",
-  "description": "Oh God Not Another One - Yet another JS Framework",
+  "description": "Oh God Not Another Framework - That's right - Yet another JS Framework",
   "main": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
