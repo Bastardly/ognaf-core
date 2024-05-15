@@ -1,6 +1,6 @@
 type IUpdateMethod<T> = (newState: T, oldState: T) => void | Promise<void>;
 
-export class Store<T extends Record<string, unknown>> {
+export class Store<T> {
   #subscribers = new Map<Symbol, IUpdateMethod<T>>();
 
   /**
@@ -15,13 +15,13 @@ export class Store<T extends Record<string, unknown>> {
 
 
   constructor(state: T) {
-    this.#state = state;
-
-    this.#oldState = state;
-
     if (this.#isValidStateObject(state)) {
       throw new Error("State provided in Store constructor is not an object.");
     }
+
+    this.#state = state;
+
+    this.#oldState = state;
   }
 
   /**

@@ -1,5 +1,5 @@
 type IUpdateMethod<T> = (newState: T, oldState: T) => void | Promise<void>;
-export declare class Store<T extends Record<string, unknown>> {
+export declare class Store<T> {
     #private;
     constructor(state: T);
     /**
