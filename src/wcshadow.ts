@@ -15,11 +15,11 @@ export class ShadowElement extends HTMLElement {
 }
 
 /**
- * wcDefine helps defining custom components:
- * wcDefine('custom-name', class extends ShadowElement { ... })
+ * define helps defining custom components:
+ * define('custom-name', class extends ShadowElement { ... })
  * @returns {string} name used to define custom component
  */
-export function wcDefine(name: string, webcomponentClass: CustomElementConstructor) {
+export function define(name: string, webcomponentClass: CustomElementConstructor) {
   if (!window.customElements?.get(name)) {
     window.customElements.define(name, webcomponentClass);
   }
