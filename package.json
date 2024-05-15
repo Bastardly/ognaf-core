@@ -1,14 +1,8 @@
 {
   "name": "@ognaf/core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Oh God Not Another Framework - That's right - Yet another JS Framework",
-  "main": "src/index.ts",
-  "exports": {
-    ".": {
-      "types": "./lib/bundle.d.ts",
-      "default": "./lib/bundle.js"
-    }
-  },
+  "main": "lib/index.js",
   "scripts": {
     "build": "tsc --project tsconfig.json",
     "build2": "rollup --config",
