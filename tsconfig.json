@@ -12,7 +12,6 @@
 		"declaration": true,
 		"noEmit": false,
 		"noImplicitAny": true,
-		"strict": true,
 		"typeRoots": [
 			"./node_modules/@types",
 		],
