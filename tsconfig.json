@@ -7,7 +7,7 @@
 		],
 		"outDir": "lib",
 		"target": "ES2015",
-		"moduleResolution": "Bundler",
+		"moduleResolution": "NodeNext",
 		"declaration": true,
 		"noEmit": false,
 		"noImplicitAny": true,
