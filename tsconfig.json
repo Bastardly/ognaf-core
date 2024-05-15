@@ -7,7 +7,8 @@
 		],
 		"outDir": "lib",
 		"target": "ES2015",
-		"moduleResolution": "NodeNext",
+		"module": "es2015",
+		"moduleResolution": "node",
 		"declaration": true,
 		"noEmit": false,
 		"noImplicitAny": true,
@@ -15,6 +16,7 @@
 		"typeRoots": [
 			"./node_modules/@types",
 		],
+		"paths": {}
 	},
 	"exclude": [
 		"./node_modules/*",

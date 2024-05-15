@@ -7,8 +7,8 @@ export declare class ShadowElement extends HTMLElement {
     constructor(options?: ShadowRootInit);
 }
 /**
- * wcDefine helps defining custom components:
- * wcDefine('custom-name', class extends ShadowElement { ... })
+ * define helps defining custom components:
+ * define('custom-name', class extends ShadowElement { ... })
  * @returns {string} name used to define custom component
  */
-export declare function wcDefine(name: string, webcomponentClass: CustomElementConstructor): string;
+export declare function define(name: string, webcomponentClass: CustomElementConstructor): string;
