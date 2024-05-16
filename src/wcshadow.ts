@@ -22,16 +22,6 @@ export class ShadowElement extends HTMLElement {
 		return this.shadow.querySelector(query) as T;
 	}
 
-	/**
-	 * Fetches a HTML template as a string.
-	 * NOTE! You cannot use scripts.
-	 * @param {string} src Source of the html template asset
-	 * @returns {string} html as string
-	 */
-	async getTemplate(src: string) {
-		const response = await fetch(src)
-		return response.text();
-	}
 }
 
 /**
