@@ -13,7 +13,6 @@ export class Store<T> {
    */
   #oldState: T;
 
-
   constructor(state: T) {
     if (this.#isValidStateObject(state)) {
       throw new Error("State provided in Store constructor is not an object.");
@@ -32,21 +31,20 @@ export class Store<T> {
   }
 
   /**
-   * Returns the current state of the store
-   * @returns {T} current state
+   * Returns a copy of the current state of the store
+   * @returns {T} copy of the current state
    */
   getState() {
     return { ...this.#state };
   }
 
     /**
-   * Returns the previous state of the store
-   * @returns {T} previous state
+   * Returns a copy of the previous state of the store
+   * @returns {T} copy of the previous state
    */
   getPreviousState() {
     return { ...this.#oldState };
   }
-
 
   /**
    * setState updates the state in the store, and notify subscribers.
@@ -61,14 +59,17 @@ export class Store<T> {
       ...newState,
     };
 
-
     this.#subscribers.forEach((subscriber) =>
       subscriber(this.#state, oldStateCopy)
     );
     this.#oldState = stateCopy;
   }
 
-
+  /**
+   * subscribe takes an update method or function that will be called on state changes.  
+   * @param updateMethod 
+   * @returns {Symbol} The symbol used for unsubscribing.
+   */
   subscribe(updateMethod: IUpdateMethod<T>) {
     const unsubscriber = Symbol();
 
@@ -77,6 +78,11 @@ export class Store<T> {
     return unsubscriber;
   }
 
+  /**
+   * unsubscribe removes the update method from the store, so that it will no longer be stored in memory,
+   * or be called when the state changes.
+   * @param unsubscriber {Symbol} The symbol received as return value from the subscribe method.
+   */
   unsubscribe(unsubscriber: Symbol) {
     if (!this.#subscribers.has(unsubscriber)) {
       throw new Error('Unsubscriber symbol must be the same as when subscribing')
