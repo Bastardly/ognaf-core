@@ -10,13 +10,6 @@ export declare class ShadowElement extends HTMLElement {
      * @param {ShadowRootInit} options
      */
     constructor(options?: ShadowRootInit);
-    /**
-     * Find element in shadowDom, assuming it exists by typecasting generic.
-   * This is not best practice, but useful when you don't want clog small scope components.
-     * Don't use in attributeChangedCallback or before dom has been written
-     * @param query html query to find element in this.shadow
-     */
-    shadowSelector<T extends HTMLElement>(query: string): T;
 }
 /**
  * define helps defining custom components:
