@@ -8,8 +8,8 @@ It functions as an ice-breaker to start using the power of web components and th
 ## Why use OGNAF?
 * Extremely small - [Less than 1kb minified and gzipped](https://bundlephobia.com/package/@ognaf/core@0.1.9)
 * Agnostic - Can be used with any clientside framework.
-* No dependencies - OGNAF has no dependencies - Which means less updates and maintenence.
-* Modular - Each DOM element can be isolated by using shadow DOM and applying styling inside the component. This also means that less tooling is needed for whatever bundler you are using.
+* No dependencies - OGNAF has no dependencies - Which means fewer updates and less maintenence.
+* Modular - Each DOM element can be isolated by using shadow DOM and by applying styling inside the component. This also means that less tooling is needed for whatever bundler you are using.
 * Extendable - You can add your own methods and data by extending the classes.
 
 ## What does OGNAF/core contain?
