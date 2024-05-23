@@ -47,7 +47,18 @@ define("hello-shadow", class extends ShadowElement {
         // ShadowRoot mode is default set to open. You can pass shadowRoot options through super
         // E.g. super({mode: 'closed'}); // Closed shadowRoot
         super();
-        this.shadow.innerHTML = "<div>Hello shadow!</div>";
+        // When using shadowDOM we can use styling directly 
+        // without worrying about overspill to other components.
+        this.shadow.innerHTML = `
+            <style>
+                div {
+                    padding: 8px;
+                    border: 2px solid hotpink;
+                    border-radius: 4px;
+                }
+            </style>
+            <div>Hello shadow!</div>
+        `;
     }
 })
 ```
@@ -90,8 +101,6 @@ define('my-counter', class extends ShadowElement {
 
     constructor() {
         super();
-        // When using shadowDOM we can use styling directly 
-        // without worrying about overspill to other components.
         this.shadow.innerHTML = `
             <style>
                 button {
@@ -101,7 +110,6 @@ define('my-counter', class extends ShadowElement {
         `
         // Here we append countButton directly to the shadowDom
         // This way we can access countButton
-        // Styling is applied from the style tag in this.shadow.innerHTML.
         this.shadow.appendChild(this.countButton)
         this.countButton.innerText = countService.getCountText(store.getState().count);
         this.countButton.onclick = () => countService.addOne();
