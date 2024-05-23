@@ -29,8 +29,9 @@ The define method is used to create define a custom element.
 import { define } from "@ognaf/core";
 
 define("hello-world", class extends HTMLElement {
-    connectedCallback() {
-        this.innerHtml = "<div>Hello world!</div>";
+    constructor() {
+        super();
+        this.innerHTML = "<div>Hello world!</div>";
     }
 })
 ```
@@ -43,9 +44,10 @@ Shadow element is a native HTMLElement that uses shadowDOM. It has a predefined 
 ```TypeScript
 import { define, ShadowElement } from "@ognaf/core";
 
-define("hello-world", class extends ShadowElement {
-    connectedCallback() {
-        this.shadow.innerHtml = "<div>Hello world!</div>";
+define("hello-shadow", class extends ShadowElement {
+    constructor() {
+        super();
+        this.shadow.innerHTML = "<div>Hello shadow!</div>";
     }
 })
 ```
