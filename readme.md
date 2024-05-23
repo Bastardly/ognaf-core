@@ -44,6 +44,8 @@ import { define, ShadowElement } from "@ognaf/core";
 
 define("hello-shadow", class extends ShadowElement {
     constructor() {
+        // ShadowRoot mode is default set to open. You can pass shadowRoot options through super
+        // E.g. super({mode: 'closed'}); // Closed shadowRoot
         super();
         this.shadow.innerHTML = "<div>Hello shadow!</div>";
     }
@@ -83,7 +85,7 @@ class CountService {
 const countService = new CountService();
 
 define('my-counter', class extends ShadowElement {
-	unsubscriber: Symbol;
+    unsubscriber: Symbol;
     countButton = document.createElement('button');
 
     constructor() {
@@ -92,7 +94,9 @@ define('my-counter', class extends ShadowElement {
         this.countButton.innerText = countService.getCountText(store.getState().count);
         this.countButton.onclick = () => countService.addOne();
 
-        // Here we subscribe to store changes. Then we can compare the changes we want, and fully control how we update our component
+        // Here we subscribe to store changes. 
+        // Then we can compare the changes we want, and fully control how we update our component
+
 		this.unsubscriber = store.subscribe((newState, oldState) => {
             if (newState.count !== oldState.count) {
                 this.countButton.innerText = countService.getCountText(newState.count);
@@ -100,6 +104,8 @@ define('my-counter', class extends ShadowElement {
         })
     }
 
+    // disconnectedCallback is a lifecycle method of the native HTMLElement
+    // It is run when the element is removed from the page.
     disconnectedCallback() {
         store.unsubscribe(this.unsubscriber);
     }
