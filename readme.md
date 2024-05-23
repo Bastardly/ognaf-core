@@ -98,8 +98,9 @@ define('my-counter', class extends ShadowElement {
                 }
             </style>
         `
-        // Here we apped countButton directly to the shadowDom
+        // Here we append countButton directly to the shadowDom
         // This way we can access countButton
+        // Styling is applied from the style tag in this.shadow.innerHTML.
         this.shadow.appendChild(this.countButton)
         this.countButton.innerText = countService.getCountText(store.getState().count);
         this.countButton.onclick = () => countService.addOne();
