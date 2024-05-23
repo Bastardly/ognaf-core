@@ -25,22 +25,26 @@ This has several benefits:
 ### Define
 The define method is used to create define a custom element.
 
-`define("hello-world", class extends HTMLElement {
+```
+define("hello-world", class extends HTMLElement {
     connectedCallback() {
         this.innerHtml = "<div>Hello world!</div>";
     }
-})`
+})
+```
 
 Define only define the custom element if it does not already exist. Otherwise, it will be ignored.
 
 ### ShadowElement
 Shadow element is a native HTMLElement that uses shadowDOM. It has a predefined property called shadow, which is of type ShadowRoot, but is not null.
 
-`define("hello-world", class extends ShadowElement {
+```
+define("hello-world", class extends ShadowElement {
     connectedCallback() {
         this.shadow.innerHtml = "<div>Hello world!</div>";
     }
-})`
+})
+```
 
 ### Store
 _WORK IN PROGRESS_
