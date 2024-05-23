@@ -25,7 +25,7 @@ This has several benefits:
 ### Define
 The define method is used to create define a custom element.
 
-```
+```TypeScript
 import { define } from "@ognao/core";
 
 define("hello-world", class extends HTMLElement {
@@ -40,7 +40,7 @@ Define only define the custom element if it does not already exist. Otherwise, i
 ### ShadowElement
 Shadow element is a native HTMLElement that uses shadowDOM. It has a predefined property called shadow, which is of type ShadowRoot, but is not null.
 
-```
+```TypeScript
 import { define, ShadowElement } from "@ognao/core";
 
 define("hello-world", class extends ShadowElement {
