@@ -34,7 +34,11 @@ define("hello-world", class extends HTMLElement {
 })
 ```
 
-Define only define the custom element if it does not already exist. Otherwise, it will be ignored.
+The define helper only define the custom element if it does not already exist. Otherwise, it will be ignored. Once the 'hello-world' component is defined, we can access it anywhere in the DOM by writing.
+
+```Html
+    <hello-world></hello-world>
+```
 
 ### ShadowElement
 Shadow element is a small extention of the native [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) that uses [shadowDOM](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM). It defines a public property called shadow, which is of type [ShadowRoot](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot), but is not null.
@@ -47,7 +51,7 @@ define("hello-shadow", class extends ShadowElement {
         // ShadowRoot mode is default set to open. You can pass shadowRoot options through super
         // E.g. super({mode: 'closed'}); // Closed shadowRoot
         super();
-        
+
         // When using shadowDOM we can use styling directly 
         // without worrying about overspill to other components.
         this.shadow.innerHTML = `
@@ -97,7 +101,13 @@ class CountService {
 const countService = new CountService();
 
 define('my-counter', class extends ShadowElement {
+    // Symbol to unsubscribe from store when the ShadowElement is 
+    // removed from the page.
     unsubscriber: Symbol;
+
+    // Here we create the button instead of writing it through
+    // this.shadow.innerHTML. This way we can access countButton,
+    // without having to find it in shadowDOM first.
     countButton = document.createElement('button');
 
     constructor() {
@@ -111,7 +121,6 @@ define('my-counter', class extends ShadowElement {
         `
 
         // Here we append countButton directly to the shadowDom
-        // This way we can access countButton
         this.shadow.appendChild(this.countButton)
         this.countButton.innerText = countService.getCountText(store.getState().count);
         this.countButton.onclick = () => countService.addOne();
