@@ -143,4 +143,12 @@ define('my-counter', class extends ShadowElement {
 })
 ```
 
+Now all 'my-counter' elements will update whenever one is clicked.
+
+```Html
+<my-counter></my-counter>
+<my-counter></my-counter>
+
+```
+
 _WORK IN PROGRESS_
