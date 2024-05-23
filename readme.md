@@ -90,7 +90,7 @@ define('my-counter', class extends ShadowElement {
 
     constructor() {
         super();
-        // When using shadowDOM we can use styling directly without worrying about overspil to other components.
+        // When using shadowDOM we can use styling directly without worrying about overspill to other components.
         this.shadow.innerHTML = `
             <style>
                 button {
