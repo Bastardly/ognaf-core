@@ -26,6 +26,8 @@ This has several benefits:
 The define method is used to create define a custom element.
 
 ```
+import { define } from "@ognao/core";
+
 define("hello-world", class extends HTMLElement {
     connectedCallback() {
         this.innerHtml = "<div>Hello world!</div>";
@@ -39,6 +41,8 @@ Define only define the custom element if it does not already exist. Otherwise, i
 Shadow element is a native HTMLElement that uses shadowDOM. It has a predefined property called shadow, which is of type ShadowRoot, but is not null.
 
 ```
+import { define, ShadowElement } from "@ognao/core";
+
 define("hello-world", class extends ShadowElement {
     connectedCallback() {
         this.shadow.innerHtml = "<div>Hello world!</div>";
