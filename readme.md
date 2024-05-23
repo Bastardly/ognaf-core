@@ -101,6 +101,10 @@ define('my-counter', class extends ShadowElement {
             }
         })
     }
+
+    disconnectedCallback() {
+        store.unsubscribe(this.unsubscriber);
+    }
 })
 ```
 
