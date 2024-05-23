@@ -109,7 +109,7 @@ define('my-counter', class extends ShadowElement {
         // Here we subscribe to store changes. 
         // Then we can compare the changes we want, 
         // and fully control how we update our component
-		this.unsubscriber = store.subscribe((newState, oldState) => {
+        this.unsubscriber = store.subscribe((newState, oldState) => {
             if (newState.count !== oldState.count) {
                 this.countButton.innerText = countService.getCountText(newState.count);
             }
