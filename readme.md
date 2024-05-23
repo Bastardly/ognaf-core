@@ -90,13 +90,22 @@ define('my-counter', class extends ShadowElement {
 
     constructor() {
         super();
+        // When using shadowDOM we can use styling directly without worrying about overspil to other components.
+        this.shadow.innerHTML = `
+            <style>
+                button {
+                    background: hotpink;
+                }
+            </style>
+        `
+        // Here we apped countButton directly to the shadowDom
+        // This way we can access countButton
         this.shadow.appendChild(this.countButton)
         this.countButton.innerText = countService.getCountText(store.getState().count);
         this.countButton.onclick = () => countService.addOne();
 
         // Here we subscribe to store changes. 
         // Then we can compare the changes we want, and fully control how we update our component
-
 		this.unsubscriber = store.subscribe((newState, oldState) => {
             if (newState.count !== oldState.count) {
                 this.countButton.innerText = countService.getCountText(newState.count);
