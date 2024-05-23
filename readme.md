@@ -39,7 +39,7 @@ define("hello-world", class extends HTMLElement {
 Define only define the custom element if it does not already exist. Otherwise, it will be ignored.
 
 ### ShadowElement
-Shadow element is a native HTMLElement that uses shadowDOM. It has a predefined property called shadow, which is of type ShadowRoot, but is not null.
+Shadow element is a small extention of the native [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) that uses [shadowDOM](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM). It defines a public property called shadow, which is of type [ShadowRoot](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot), but is not null.
 
 ```TypeScript
 import { define, ShadowElement } from "@ognaf/core";
@@ -53,4 +53,55 @@ define("hello-shadow", class extends ShadowElement {
 ```
 
 ### Store
+Store is an observable that custom components can subscribe to with an updateMethod. 
+
+Here is an example in typescript
+
+
+```TypeScript
+import { define, ShadowElement, Store } from "@ognaf/core";
+
+interface IState {
+	count: number
+}
+
+const store = new Store<IState>({
+	count: 0
+});
+
+// Use services to handle state changes, since services can be reused
+class CountService {
+    addOne() {
+        store.setState({
+            count: store.getState().count + 1
+        })
+    }
+
+    getCountText(newCount: number) {
+        return 'Count: ' + newCount;
+    }
+}
+
+const countService = new CountService();
+
+define('my-counter', class extends ShadowElement {
+	unsubscriber: Symbol;
+    countButton = document.createElement('button');
+
+    constructor() {
+        super();
+        this.shadow.appendChild(this.countButton)
+        this.countButton.innerText = countService.getCountText(store.getState().count);
+        this.countButton.onclick = () => countService.addOne();
+
+        // Here we subscribe to store changes. Then we can compare the changes we want, and fully control how we update our component
+		this.unsubscriber = store.subscribe((newState, oldState) => {
+            if (newState.count !== oldState.count) {
+                this.countButton.innerText = countService.getCountText(newState.count);
+            }
+        })
+    }
+})
+```
+
 _WORK IN PROGRESS_
