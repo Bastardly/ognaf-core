@@ -41,6 +41,17 @@ export class ShadowElement extends HTMLElement {
  * define helps defining custom components:
  * define('custom-name', class extends ShadowElement { ... })
  * @returns {string} name used to define custom component
+ * @example 
+ * import { define } from "@ognaf/core";
+
+ * define("hello-world", class extends ShadowElement {
+    constructor() {
+        super();
+        this.shadow.innerHTML = "<div>Hello world!</div>";
+    }
+})
+ * 
+It 
  */
 export function define(name: string, webcomponentClass: CustomElementConstructor) {
   if (!window.customElements?.get(name)) {

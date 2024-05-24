@@ -4,7 +4,7 @@ _WORK IN PROGRESS_
 
 OGNAF is a tiny clientside "framework" that builds on the Keep It Simple, Stupid (KISS) principle.  
 
-## Why use OGNAF?
+# Why use OGNAF?
 The motivation of OGNAF is the bare-bone power of the modern browser. OGNAF just makes using that power a little easier.
 Apart from that, OGNAF has several benefits:
 
@@ -15,12 +15,12 @@ Apart from that, OGNAF has several benefits:
 * Extendable - You can extend the classes and add your own methods and data to fit your needs.
 * TypeScript friendly.
 
-## What does OGNAF/core contain?
+# What does OGNAF/core contain?
 * define - A simple function that simplifies the creating of web components.
 * ShadowElement - Which is basically a standard HTMLElement with an applied shadowDOM. 
 * Store - A store class to create observable stores. A web component can then easily subscribe to the stores, and apply updates as the data changes.
 
-### Define
+## Define
 The define method is used to create define a custom element.
 
 ```TypeScript
@@ -40,7 +40,7 @@ The define helper only define the custom element if it does not already exist. O
     <hello-world></hello-world>
 ```
 
-### ShadowElement
+## ShadowElement
 Shadow element is a small extention of the native [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) that uses [shadowDOM](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM). It defines a public property called shadow, which is of type [ShadowRoot](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot), but is not null.
 
 ```TypeScript
@@ -68,10 +68,29 @@ define("hello-shadow", class extends ShadowElement {
 })
 ```
 
-### Store
-Store is an observable that custom components can subscribe to with an updateMethod. 
+## Store
+Store is a state-holding observable. The state must be an object. Custom components can subscribe to the Store with an updateMethod which will be called on state changes. 
 
-Here is an example in typescript
+### Store methods
+
+#### getState()
+Returns a copy of the state.
+
+#### getPreviousState()
+Returns a copy of the previous state.
+
+#### setState(partialState)
+Sets state and notify all subscribers.
+
+#### subscribe(updateMethod)
+Allows the componenent to subscribe to state changes with an updateMethod.
+It returns an unsubscription symbol which must be used to unsubscribe
+
+#### unsubscribe(updateMethod)
+Removes the connected updatemethod from the store.
+
+### Example
+Here is an example of a counter in typescript:
 
 
 ```TypeScript
