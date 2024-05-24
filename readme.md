@@ -71,22 +71,28 @@ define("hello-shadow", class extends ShadowElement {
 ## Store
 Store is a state-holding observable. The state must be an object. Custom components can subscribe to the Store with an updateMethod which will be called on state changes. 
 
-### Store methods
+### Constructor
 
-#### getState()
-Returns a copy of the state.
+WIP
 
-#### getPreviousState()
+### Methods
+
+For the types, we define the state of the store as T.
+
+#### Store.getState(): T
+Returns a copy of the state. 
+
+#### Store.getPreviousState(): T
 Returns a copy of the previous state.
 
-#### setState(partialState)
+#### Store.setState(partialState: Partial<T>): void
 Sets state and notify all subscribers.
 
-#### subscribe(updateMethod)
+#### Store.subscribe(updateMethod: (newState: T, oldState: T) => void): Symbol
 Allows the componenent to subscribe to state changes with an updateMethod.
 It returns an unsubscription symbol which must be used to unsubscribe
 
-#### unsubscribe(updateMethod)
+#### Store.unsubscribe(unsubscriber: Symbol): void
 Removes the connected updatemethod from the store.
 
 ### Example
