@@ -51,11 +51,16 @@ export class ShadowElement extends HTMLElement {
     }
 })
  * 
-It 
+ * The define helper only define the custom element if it does not already exist. 
+ * Otherwise, it will be ignored. Once the component is defined, we can access it anywhere 
+ * in the DOM by its given name.
+ * 
+ * @example
+ * <my-component></my-component>
  */
-export function define(name: string, webcomponentClass: CustomElementConstructor) {
+export function define(name: string, webcomponentClass: CustomElementConstructor, options?: ElementDefinitionOptions ) {
   if (!window.customElements?.get(name)) {
-    window.customElements.define(name, webcomponentClass);
+    window.customElements.define(name, webcomponentClass, options);
   }
 
   return name;
