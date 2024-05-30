@@ -40,6 +40,19 @@ The define helper only define the custom element if it does not already exist. O
     <hello-world></hello-world>
 ```
 
+By using the options, you can extend existing HTMLElements, and create you own styled components.
+
+```TypeScript
+define( "custom-p", class extends HTMLElement {
+    constructor() {
+      super();
+      this.style.fontSize = "1.2rem";  // Set default font size
+      this.style.color = "#333";        // Set default text color
+      this.style.padding = "10px 20px"; // Add padding
+    }
+  },)
+```
+
 ## ShadowElement
 Shadow element is a small extention of the native [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) that uses [shadowDOM](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM). It defines a public property called shadow, which is of type [ShadowRoot](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot), but is not null.
 
