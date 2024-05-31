@@ -98,7 +98,7 @@ Returns a copy of the state.
 #### Store.getPreviousState(): T
 Returns a copy of the previous state.
 
-#### Store.setState(partialState: Partial<T>): void
+#### Store.setState(partialState: Partial\<T\>): void
 Sets state and notify all subscribers.
 
 #### Store.subscribe(updateMethod: (newState: T, oldState: T) => void): Symbol
