@@ -2,15 +2,15 @@
 
 _WORK IN PROGRESS_
 
-OGNAF is a tiny clientside "framework" that builds on the Keep It Simple, Stupid (KISS) principle.  
+OGNAF is a tiny clientside library that builds on the KISS principle (Keep It Simple, Stupid).
 
 # Why use OGNAF?
-The motivation of OGNAF is the bare-bone power of the modern browser. OGNAF just makes using that power a little easier.
-Apart from that, OGNAF has several benefits:
+OGNAF uses the bare-bone power of the modern browser - OGNAF just makes using it a little easier.
+This has several benefits:
 
 * Extremely small - [Less than 1kb minified and gzipped](https://bundlephobia.com/package/@ognaf/core@0.1.9)
 * Agnostic - Can be used with any clientside framework.
-* No dependencies - OGNAF has no dependencies - Which means fewer updates and less maintenence.
+* No dependencies - Which means fewer updates and less maintenence.
 * Modular - Each DOM element can be isolated by using shadow DOM and by applying styling inside the component. This also means that less tooling is needed for whatever bundler you are using.
 * Extendable - You can extend the classes and add your own methods and data to fit your needs.
 * TypeScript friendly.
@@ -105,7 +105,7 @@ Sets state and notify all subscribers.
 Allows the componenent to subscribe to state changes with an updateMethod.
 It returns an unsubscription symbol which must be used to unsubscribe
 
-#### Store.unsubscribe(unsubscriber: Symbol): void
+#### Store.unsubscribe(subscriberToken: Symbol): void
 Removes the connected updatemethod from the store.
 
 ### Example
@@ -141,7 +141,7 @@ const countService = new CountService();
 define('my-counter', class extends ShadowElement {
     // Symbol to unsubscribe from store when the ShadowElement is 
     // removed from the page.
-    unsubscriber: Symbol;
+    subscriberToken: Symbol;
 
     // Here we create the button instead of writing it through
     // this.shadow.innerHTML. This way we can access countButton,
@@ -166,7 +166,7 @@ define('my-counter', class extends ShadowElement {
         // Here we subscribe to store changes. 
         // Then we can compare the changes we want, 
         // and fully control how we update our component
-        this.unsubscriber = store.subscribe((newState, oldState) => {
+        this.subscriberToken = store.subscribe((newState, oldState) => {
             if (newState.count !== oldState.count) {
                 this.countButton.innerText = countService.getCountText(newState.count);
             }
@@ -176,7 +176,7 @@ define('my-counter', class extends ShadowElement {
     // disconnectedCallback is a lifecycle method of the native HTMLElement
     // It is run when the element is removed from the page.
     disconnectedCallback() {
-        store.unsubscribe(this.unsubscriber);
+        store.unsubscribe(this.subscriberToken);
     }
 })
 ```

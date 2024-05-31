@@ -71,23 +71,23 @@ export class Store<T> {
    * @returns {Symbol} The symbol used for unsubscribing.
    */
   subscribe(updateMethod: IUpdateMethod<T>) {
-    const unsubscriber = Symbol();
+    const subscriberToken = Symbol();
 
-    this.#subscribers.set(unsubscriber, updateMethod);
+    this.#subscribers.set(subscriberToken, updateMethod);
 
-    return unsubscriber;
+    return subscriberToken;
   }
 
   /**
    * unsubscribe removes the update method from the store, so that it will no longer be stored in memory,
    * or be called when the state changes.
-   * @param unsubscriber {Symbol} The symbol received as return value from the subscribe method.
+   * @param subscriberToken {Symbol} The symbol received as return value from the subscribe method.
    */
-  unsubscribe(unsubscriber: Symbol) {
-    if (!this.#subscribers.has(unsubscriber)) {
-      throw new Error('Unsubscriber symbol must be the same as when subscribing')
+  unsubscribe(subscriberToken: Symbol) {
+    if (!this.#subscribers.has(subscriberToken)) {
+      throw new Error('SubscriberToken not found. The subscriberToken is the symbol returned from the subscribe method. This symbol must be a return value from subscribe method.')
     }
 
-    this.#subscribers.delete(unsubscriber);
+    this.#subscribers.delete(subscriberToken);
   }
 }
