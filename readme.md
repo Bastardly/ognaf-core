@@ -318,6 +318,7 @@ define('better-counter', class extends ShadowElement {
     connectedCallback() {
         this.storeKey = this.getAttribute('storekey') || this.storeKey;
 
+        // Here we rewrite the shadowDOM. 
         this.shadow.innerHTML = `
             <style>
                 button {
