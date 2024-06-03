@@ -56,33 +56,91 @@ define( "custom-p", class extends HTMLElement {
 ## ShadowElement
 Shadow element is a small extention of the native [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) that uses [shadowDOM](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM). It defines a public property called shadow, which is of type [ShadowRoot](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot), but is not null.
 
-```TypeScript
-import { define, ShadowElement } from "@ognaf/core";
 
-define("hello-shadow", class extends ShadowElement {
+### Example 1
+Here is one way to create a component using shadowRoot. This is a button that shows how many times you've clicked it.
+
+```TypeScript
+import { define, ShadowElement } from "@ognaf/core"
+
+define('local-counter', class extends ShadowElement {
+    // Here we create the button instead of writing it through
+    // this.shadow.innerHTML. This way we can access countButton,
+    // **without** having to find it in shadowDOM first.
+    countButton = document.createElement('button');
+
+    count = 0;
+
+    getCountText() {
+        return 'Count: ' + this.count;
+    }
+
     constructor() {
-        // ShadowRoot mode is default set to open. You can pass shadowRoot options through super
-        // E.g. super({mode: 'closed'}); // Closed shadowRoot
         super();
 
         // When using shadowDOM we can use styling directly 
         // without worrying about overspill to other components.
         this.shadow.innerHTML = `
             <style>
-                div {
-                    padding: 8px;
-                    border: 2px solid hotpink;
-                    border-radius: 4px;
+                button {
+                    background: hotpink;
                 }
             </style>
-            <div>Hello shadow!</div>
-        `;
+        `
+
+        // Here we append countButton directly to the shadowDom
+        this.shadow.appendChild(this.countButton)
+        this.countButton.innerText = this.getCountText();
+        this.countButton.onclick = () => {
+            this.count += 1;
+            this.countButton.innerText = this.getCountText();
+        };
     }
 })
 ```
 
+### Example 2
+Here, instead of defining elements in the constructor, we write the entire template as a string literal.
+Again, this is a button that shows how many times you've clicked it.
+
+```TypeScript
+import { define, ShadowElement } from "@ognaf/core"
+
+define('local-counter2', class extends ShadowElement {
+    count = 0;
+
+    getCountText() {
+        return 'Count: ' + this.count;
+    }
+
+    // Invoked when the ShadowElement is first connected to the DOM.
+    connectedCallback() {
+        // In this example we also add a button to the innerHTML
+        this.shadow.innerHTML = `
+            <style>
+                button {
+                    background: hotpink;
+                }
+            </style>
+            <button>0</button>
+        `
+
+        // By using shadowDOM, we can isolate the querySelector to the ShadowDOM.
+        // Thereby limiting the scope. However, we do need to typeCast it as HTMLButtonElement
+        // to avoid an extra null-check.
+        const countButton = this.shadow.querySelector('button') as HTMLButtonElement;
+        countButton.onclick = () => {
+            this.count += 1;
+            countButton.innerText = this.getCountText();
+        }
+    }
+})
+```
+
+
 ## Store
 Store is a state-holding observable. The state must be an object. Custom components can subscribe to the Store with an updateMethod which will be called on state changes. 
+This allows us to handle data across multiple components.
 
 ### Constructor
 
@@ -108,69 +166,88 @@ It returns an unsubscription symbol which must be used to unsubscribe
 #### Store.unsubscribe(subscriberToken: Symbol): void
 Removes the connected updatemethod from the store.
 
-### Example
-Here is an example of a counter in typescript:
+### Bad example
+This is an example of what not to do. It is bad practice to edit the store's state directly from the component. 
+Here is an example of the previous counter button where I call the store from the location. 
+
+The problem with this approach, is that we limit ourselves to the component. Also, the component becomes messy and harder to read,
+which is very appearant in the getCountText method.
 
 
 ```TypeScript
 import { define, ShadowElement, Store } from "@ognaf/core";
 
-interface IState {
-	count: number
-}
+const store = new Store<Record<string, number>>({});
 
-const store = new Store<IState>({
-	count: 0
-});
-
-// Use services to handle state changes, since services can be reused
-class CountService {
-    addOne() {
-        store.setState({
-            count: store.getState().count + 1
-        })
-    }
-
-    getCountText(newCount: number) {
-        return 'Count: ' + newCount;
-    }
-}
-
-const countService = new CountService();
-
-define('my-counter', class extends ShadowElement {
+define('my-bad-counter', class extends ShadowElement {
     // Symbol to unsubscribe from store when the ShadowElement is 
     // removed from the page.
     subscriberToken: Symbol;
 
-    // Here we create the button instead of writing it through
-    // this.shadow.innerHTML. This way we can access countButton,
-    // without having to find it in shadowDOM first.
-    countButton = document.createElement('button');
+    storeKey = 'default_count'
+
+    // observedAttributes whitelist the attributes we wish to observe.
+    // This allows us to have multiple count buttons in the store.
+    static get observedAttributes() {
+        return ['storekey']
+    }
 
     constructor() {
         super();
+        // Here we subscribe to store changes. 
+        // Then we can compare the changes we want, 
+        // and fully control how we update our component
+        this.subscriberToken = store.subscribe((newState, oldState) => {
+            if (newState.count !== oldState.count) {
+                 const countButton = this.shadow.querySelector('button');
+
+                 if (countButton) {
+                     countButton.innerText = this.getCountText();
+                 }
+            }
+        })
+    }
+
+
+    add(amount: number) {
+        store.setState({
+            [this.storeKey]: (store.getState()[this.storeKey] || 0) + amount,
+        })
+    }
+
+    getCountText() {
+        let storeCount = store.getState()[this.storeKey];
+
+        if (storeCount === undefined) {
+            storeCount = 0;
+            this.add(0)
+        }
+
+        return 'Count: ' + storeCount;
+    }
+
+    
+    connectedCallback() {
+        // An individual storeKey passed to the component: <my-bad-counter storekey="myKey"></my-bad-counter>
+        // The component needs to be connected to the DOM before we can get the attribute - which is why we do it in the connectedCallback method.
+        this.storeKey = this.getAttribute('storekey') || this.storeKey;
+
         this.shadow.innerHTML = `
             <style>
                 button {
                     background: hotpink;
                 }
             </style>
+            <button>${this.getCountText()}</button>
         `
 
-        // Here we append countButton directly to the shadowDom
-        this.shadow.appendChild(this.countButton)
-        this.countButton.innerText = countService.getCountText(store.getState().count);
-        this.countButton.onclick = () => countService.addOne();
+        const countButton = this.shadow.querySelector('button') as HTMLButtonElement;
+        countButton.onclick = () => this.add(1);
+    }
 
-        // Here we subscribe to store changes. 
-        // Then we can compare the changes we want, 
-        // and fully control how we update our component
-        this.subscriberToken = store.subscribe((newState, oldState) => {
-            if (newState.count !== oldState.count) {
-                this.countButton.innerText = countService.getCountText(newState.count);
-            }
-        })
+    // If the storekey changes, we reload the entire component.
+    attributeChangedCallback() {
+        this.connectedCallback();
     }
 
     // disconnectedCallback is a lifecycle method of the native HTMLElement
@@ -181,12 +258,87 @@ define('my-counter', class extends ShadowElement {
 })
 ```
 
-Now all 'my-counter' elements will update whenever one is clicked.
+### Better example
+Here is an example of a better counter in typescript, where we utilize some of the different techniques used in the previous examples.
 
-```Html
-<my-counter></my-counter>
-<my-counter></my-counter>
 
+```TypeScript
+import { define, ShadowElement, Store } from "@ognaf/core";
+
+const store = new Store<Record<string, number>>({});
+
+// Services can be reused across multiple components, and it removes logic from the components, making them a lot cleaner.
+class CountService {
+    add(storeKey: string, amount: number) {
+        store.setState({
+            [storeKey]: (store.getState()[storeKey] || 0) + amount,
+        })
+    }
+
+    getStoreCount(storeKey: string) {
+        const storeCount = store.getState()[storeKey];
+
+        if (Number.isInteger(storeCount)) {
+            return storeCount;
+        }
+
+        this.add(storeKey, 0)
+
+        return 0;
+    }
+
+    getCountText(storeKey: string) {
+        return 'Count: ' + this.getStoreCount(storeKey);
+    }
+}
+
+const countService = new CountService();
+
+define('better-counter', class extends ShadowElement {
+    subscriberToken: Symbol;
+
+    countButton = document.createElement('button');
+
+    storeKey = 'default_count'
+
+    static get observedAttributes() {
+        return ['storekey']
+    }
+
+    constructor() {
+        super();
+
+        this.subscriberToken = store.subscribe((newState, oldState) => {
+            if (newState.count !== oldState.count) {
+                this.countButton.innerText = countService.getCountText(this.storeKey);
+            }
+        })
+    }
+   
+    connectedCallback() {
+        this.storeKey = this.getAttribute('storekey') || this.storeKey;
+
+        this.shadow.innerHTML = `
+            <style>
+                button {
+                    background: hotpink;
+                }
+            </style>
+        `
+        // Here we append the button instead of writing it to the template. 
+        // This way we ensure that it's never undefined, and therefore we can avoid
+        // a condition in the subscribtion method.
+        this.shadow.appendChild(this.countButton)
+        this.countButton.innerText = countService.getCountText(this.storeKey);
+        this.countButton.onclick = () => countService.add(this.storeKey, 1);
+    }
+
+    attributeChangedCallback() {
+        this.connectedCallback();
+    }
+
+    disconnectedCallback() {
+        store.unsubscribe(this.subscriberToken);
+    }
+})
 ```
-
-_WORK IN PROGRESS_
