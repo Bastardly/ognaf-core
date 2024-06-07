@@ -6,7 +6,7 @@ OGNAF is a tiny clientside library that builds on the KISS principle (Keep It Si
 OGNAF uses the bare-bone power of the modern browser - it just makes using it a little easier.
 This has several benefits:
 
-* Extremely small - [Less than 1kb minified and gzipped](https://bundlephobia.com/package/@ognaf/core@0.2.1)
+* Extremely small - [Less than 1kb minified and gzipped](https://bundlephobia.com/package/@ognaf/core@0.2.2)
 * Agnostic - Can be used with any clientside framework.
 * No dependencies - Which means fewer updates and less maintenence.
 * Modular - Each DOM element can be isolated by using shadow DOM and by applying styling inside the component. This also means that less tooling is needed for whatever bundler you are using.
