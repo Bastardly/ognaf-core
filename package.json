@@ -1,7 +1,7 @@
 {
   "name": "@ognaf/core",
-  "version": "0.2.0",
-  "description": "Oh God Not Another Framework - That's right - Yet another JS Framework",
+  "version": "0.2.1",
+  "description": "Oh God Not Another Framework - If you feel this way - this tiny library might be for you.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {

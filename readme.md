@@ -3,7 +3,7 @@
 OGNAF is a tiny clientside library that builds on the KISS principle (Keep It Simple, Stupid).
 
 # Why use OGNAF?
-OGNAF uses the bare-bone power of the modern browser - OGNAF just makes using it a little easier.
+OGNAF uses the bare-bone power of the modern browser - it just makes using it a little easier.
 This has several benefits:
 
 * Extremely small - [Less than 1kb minified and gzipped](https://bundlephobia.com/package/@ognaf/core@0.1.9)
@@ -14,7 +14,7 @@ This has several benefits:
 * TypeScript friendly.
 
 # What does OGNAF/core contain?
-* define - A simple function that simplifies the creating of web components.
+* define - A simple function that simplifies the creation of web components.
 * ShadowElement - Which is basically a standard HTMLElement with an applied shadowDOM. 
 * Store - A store class to create observable stores. A web component can then easily subscribe to the stores, and apply updates as the data changes.
 
@@ -48,11 +48,13 @@ define( "custom-p", class extends HTMLElement {
       this.style.color = "#333";        // Set default text color
       this.style.padding = "10px 20px"; // Add padding
     }
-  },)
+  })
 ```
 
 ## ShadowElement
 Shadow element is a small extention of the native [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) that uses [shadowDOM](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM). It defines a public property called shadow, which is of type [ShadowRoot](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot), but is not null.
+
+Unlike shadowRoot, shadow is cannot be null, which means that you don't have to check if it exists, before applying changes.
 
 
 ### Example 1
@@ -137,12 +139,12 @@ define('local-counter2', class extends ShadowElement {
 
 
 ## Store
-Store is a state-holding observable. The state must be an object. Custom components can subscribe to the Store with an updateMethod which will be called on state changes. 
+Store is a state-holding observable.  Custom components can subscribe to the Store with an updateMethod which will be called on state changes. 
 This allows us to handle data across multiple components.
 
 ### Constructor
 
-The constructor takes the initial state of the Store as a parameter. It then sets the Store's state and previous state to equal the initial state.
+The constructor takes the initial state of the Store as a parameter. The initial state must be an object. It then sets the Store's state and previous state to equal the initial state.
 Since there are no subscribers during the construction of the Store, no re-renders will be triggered.
 
 ### Methods
