@@ -1,6 +1,9 @@
 type IUpdateMethod<T> = (newState: T, oldState: T) => void | Promise<void>;
 
 export class Store<T> {
+  /**
+   * #subscribers is a map of update methods, which will be run on state changes.
+   */
   #subscribers = new Map<Symbol, IUpdateMethod<T>>();
 
   /**
