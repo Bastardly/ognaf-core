@@ -15,7 +15,7 @@ export class Store<T> {
 
   constructor(state: T) {
     if (this.#isValidStateObject(state)) {
-      throw new Error("State provided in Store constructor is not an object.");
+      throw new Error("State provided in Store constructor is not a state-holding object.");
     }
 
     this.#state = state;

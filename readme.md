@@ -1,7 +1,5 @@
 # Oh God Not Another Framework (OGNAF)
 
-_WORK IN PROGRESS_
-
 OGNAF is a tiny clientside library that builds on the KISS principle (Keep It Simple, Stupid).
 
 # Why use OGNAF?
@@ -144,7 +142,8 @@ This allows us to handle data across multiple components.
 
 ### Constructor
 
-WIP
+The constructor takes the initial state of the Store as a parameter. It then sets the Store's state and previous state to equal the initial state.
+Since there are no subscribers during the construction of the Store, no re-renders will be triggered.
 
 ### Methods
 
