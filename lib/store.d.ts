@@ -26,8 +26,8 @@ export declare class Store<T> {
     /**
      * unsubscribe removes the update method from the store, so that it will no longer be stored in memory,
      * or be called when the state changes.
-     * @param unsubscriber {Symbol} The symbol received as return value from the subscribe method.
+     * @param subscriberToken {Symbol} The symbol received as return value from the subscribe method.
      */
-    unsubscribe(unsubscriber: Symbol): void;
+    unsubscribe(subscriberToken: Symbol): void;
 }
 export {};
