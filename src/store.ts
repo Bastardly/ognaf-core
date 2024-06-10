@@ -54,16 +54,17 @@ export class Store<T> {
    * @param newState should be the entire, or apart of, the new state object.
    */
   setState(newState: Partial<T>) {
-    const stateCopy = this.getState();
     const oldStateCopy = this.getPreviousState();
-
+    
     this.#state = {
       ...this.#state,
       ...newState,
     };
 
+    const stateCopy = this.getState();
+
     this.#subscribers.forEach((subscriber) =>
-      subscriber(this.#state, oldStateCopy)
+      subscriber(stateCopy, oldStateCopy)
     );
     this.#oldState = stateCopy;
   }
