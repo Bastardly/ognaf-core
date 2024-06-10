@@ -44,10 +44,10 @@ define("hello-world", class extends HTMLElement {
 The define helper only define the custom element if it does not already exist. Otherwise, it will be ignored. Once the 'hello-world' component is defined, we can access it anywhere in the DOM by writing.
 
 ```Html
-    <hello-world></hello-world>
+<hello-world></hello-world>
 ```
 
-By using extends as an option. This way you can apply variants components exising components.
+You can apply variants components exising components by using extends as an option.
 
 ```TypeScript
 define("custom-p", class extends HTMLParagraphElement {
@@ -63,7 +63,7 @@ define("custom-p", class extends HTMLParagraphElement {
 You can then apply 'custom-p' to existing paragraph tags.
 
 ```Html
-    <p is="custom-p">Just look how custom I am!</p>
+<p is="custom-p">Just look how custom I am!</p>
 ```
 
 
