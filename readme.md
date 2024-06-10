@@ -48,7 +48,7 @@ The define helper only define the custom element if it does not already exist. O
 ```
 
 ### Options (not recommended)
-You can apply variants components exising components by using extends as an option.
+You can apply variants components existing components by using extends as an option.
 
 However, using the extends option is NOT recommended because the 'is' property is [not supported by Safari](https://caniuse.com/mdn-html_global_attributes_is)
 
