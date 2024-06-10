@@ -141,7 +141,7 @@ define('local-counter2', class extends ShadowElement {
                     background: hotpink;
                 }
             </style>
-            <button>0</button>
+            <button>${this.getCountText()}</button>
         `
 
         // By using shadowDOM, we can isolate the querySelector to the ShadowDOM.
