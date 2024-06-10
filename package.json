@@ -1,6 +1,6 @@
 {
   "name": "@ognaf/core",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Oh God Not Another Framework - If you feel this way - this tiny library might be for you.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
