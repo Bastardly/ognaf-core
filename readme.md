@@ -13,6 +13,15 @@ This has several benefits:
 * Extendable - You can extend the classes and add your own methods and data to fit your needs.
 * TypeScript friendly.
 
+# Installation
+Installation is fairly simple using (Node's)[https://nodejs.org] package manager.
+
+In your console, run:
+
+```
+npm install @ognaf/core
+```
+
 # What does OGNAF/core contain?
 * define - A simple function that simplifies the creation of web components.
 * ShadowElement - Which is basically a standard HTMLElement with an applied shadowDOM. 
