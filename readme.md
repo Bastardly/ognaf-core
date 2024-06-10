@@ -144,9 +144,8 @@ define('local-counter2', class extends ShadowElement {
         `
 
         // By using shadowDOM, we can isolate the querySelector to the ShadowDOM.
-        // Thereby limiting the scope. However, we do need to typeCast it as HTMLButtonElement
-        // to avoid an extra null-check.
-        const countButton = this.shadow.querySelector('button') as HTMLButtonElement;
+        // Thereby limiting the scope.
+        const countButton = this.shadow.querySelector<HTMLButtonElement>('button');
         countButton.onclick = () => {
             this.count += 1;
             countButton.innerText = this.getCountText();
@@ -218,7 +217,7 @@ define('my-bad-counter', class extends ShadowElement {
         // and fully control how we update our component
         this.subscriberToken = store.subscribe((newState, oldState) => {
             if (newState.count !== oldState.count) {
-                 const countButton = this.shadow.querySelector('button');
+                 const countButton = this.shadow.querySelector<HTMLButtonElement>('button');
 
                  if (countButton) {
                      countButton.innerText = this.getCountText();
@@ -260,7 +259,7 @@ define('my-bad-counter', class extends ShadowElement {
             <button>${this.getCountText()}</button>
         `
 
-        const countButton = this.shadow.querySelector('button') as HTMLButtonElement;
+        const countButton = this.shadow.querySelector<HTMLButtonElement>('button');
         countButton.onclick = () => this.add(1);
     }
 
