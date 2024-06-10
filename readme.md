@@ -14,7 +14,7 @@ This has several benefits:
 * TypeScript friendly.
 
 # Installation
-Installation is fairly simple using (Node's)[https://nodejs.org] package manager.
+Installation is fairly simple using [Node's](https://nodejs.org) package manager.
 
 In your console, run:
 
