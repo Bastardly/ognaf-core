@@ -85,7 +85,7 @@ import { define, ShadowElement } from "@ognaf/core"
 define('local-counter', class extends ShadowElement {
     // Here we create the button instead of writing it through
     // this.shadow.innerHTML. This way we can access countButton,
-    // **without** having to find it in shadowDOM first.
+    // without having to find it in shadowDOM first.
     countButton = document.createElement('button');
 
     count = 0;
@@ -247,8 +247,10 @@ define('my-bad-counter', class extends ShadowElement {
 
     
     connectedCallback() {
-        // An individual storeKey passed to the component: <my-bad-counter storekey="myKey"></my-bad-counter>
-        // The component needs to be connected to the DOM before we can get the attribute - which is why we do it in the connectedCallback method.
+        // An individual storeKey passed to the component: 
+        // <my-bad-counter storekey="myKey"></my-bad-counter>
+        // The component needs to be connected to the DOM before we can get the attribute,
+        // which is why we do it in the connectedCallback method.
         this.storeKey = this.getAttribute('storekey') || this.storeKey;
 
         this.shadow.innerHTML = `
@@ -286,7 +288,8 @@ import { define, ShadowElement, Store } from "@ognaf/core";
 
 const store = new Store<Record<string, number>>({});
 
-// Services can be reused across multiple components, and it removes logic from the components, making them a lot cleaner.
+// Services can be reused across multiple components, and it removes logic from the components, 
+// making them a lot cleaner.
 class CountService {
     add(storeKey: string, amount: number) {
         store.setState({
