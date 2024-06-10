@@ -47,6 +47,8 @@ The define helper only define the custom element if it does not already exist. O
 <hello-world></hello-world>
 ```
 
+### Options
+
 You can apply variants components exising components by using extends as an option.
 
 ```TypeScript
