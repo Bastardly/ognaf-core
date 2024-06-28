@@ -290,14 +290,15 @@ const store = new Store<Record<string, number>>({});
 
 // Services can be reused across multiple components, and it removes logic from the components, 
 // making them a lot cleaner.
-class CountService {
-    add(storeKey: string, amount: number) {
+
+const countService = {
+    add: (storeKey: string, amount: number) => {
         store.setState({
             [storeKey]: (store.getState()[storeKey] || 0) + amount,
         })
-    }
+    },
 
-    getStoreCount(storeKey: string) {
+    getStoreCount: (storeKey: string) => {
         const storeCount = store.getState()[storeKey];
 
         if (Number.isInteger(storeCount)) {
@@ -307,14 +308,12 @@ class CountService {
         this.add(storeKey, 0)
 
         return 0;
-    }
+    },
 
-    getCountText(storeKey: string) {
+    getCountText: (storeKey: string) => {
         return 'Count: ' + this.getStoreCount(storeKey);
     }
 }
-
-const countService = new CountService();
 
 define('better-counter', class extends ShadowElement {
     subscriberToken: Symbol;
