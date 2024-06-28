@@ -305,13 +305,13 @@ const countService = {
             return storeCount;
         }
 
-        this.add(storeKey, 0)
+        countService.add(storeKey, 0)
 
         return 0;
     },
 
     getCountText: (storeKey: string) => {
-        return 'Count: ' + this.getStoreCount(storeKey);
+        return 'Count: ' + countService.getStoreCount(storeKey);
     }
 }
 
