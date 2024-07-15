@@ -1,7 +1,8 @@
 import { ShadowElement, define } from "@ognaf/core";
 
 /**
- * This is a styled textarea that expands automatically
+ * This is a very simple component made for testing purposes that should be easy to understand.
+ * Normally, there would be no need to use ShadowDom for this type of Component.
  */
 define(
   "text-area",
@@ -24,6 +25,7 @@ define(
 			padding: 8px 12px;
 			border: 1px solid #eee;
 			color: "#111";
+			box-sizing: border-box; 
 		}
 
 		textarea:active {
@@ -62,6 +64,12 @@ define(
 
     connectedCallback() {
       this.textarea.value = this.getAttribute("value") || "";
+      this.autoExpand(); // Ensure it expands correctly when initialized with a value
+    }
+
+    autoExpand() {
+      this.textarea.style.height = "auto";
+      this.textarea.style.height = `${this.textarea.scrollHeight}px`;
     }
   }
 );
