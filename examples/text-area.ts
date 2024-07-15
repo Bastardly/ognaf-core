@@ -47,8 +47,10 @@ define(
         const inputString = (e.target as HTMLTextAreaElement).value;
         this.autoExpand();
 
-        const custom = new CustomEvent("form-event", {
+        const custom = new CustomEvent("ognaf-form-event", {
           detail: { value: inputString, validity: this.textarea.validity },
+          composed: true,
+          bubbles: true,
         });
 
         this.textarea.dispatchEvent(custom);
