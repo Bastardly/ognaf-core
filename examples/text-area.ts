@@ -43,14 +43,9 @@ define(
 		</style>
 		`;
 
-      const computedStyle = window.getComputedStyle(this.textarea);
-      const fontSize = computedStyle.getPropertyValue("font-size");
       this.textarea.oninput = (e: InputEvent) => {
         const inputString = (e.target as HTMLTextAreaElement).value;
-        const lines = inputString.split(/\r\n|\r|\n/);
-        const lineCount = lines.length;
-        this.textarea.style.minHeight =
-          lineCount * (parseFloat(fontSize) || 16) + "px";
+        this.autoExpand();
 
         const custom = new CustomEvent("form-event", {
           detail: { value: inputString, validity: this.textarea.validity },
@@ -69,7 +64,7 @@ define(
 
     autoExpand() {
       this.textarea.style.height = "auto";
-      this.textarea.style.height = `${this.textarea.scrollHeight}px`;
+      this.textarea.style.height = `${this.textarea.scrollHeight + 10}px`;
     }
   }
 );
