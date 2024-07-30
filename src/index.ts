@@ -1,3 +1,3 @@
-export { define, ShadowElement } from "./wcshadow";
+export { define, ShadowElement } from "./wcshadow.js";
 
-export { Store } from "./store"
+export { Store } from "./store.js"
