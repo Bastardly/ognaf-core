@@ -1,17 +1,16 @@
 {
   "name": "@ognaf/core",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Oh God Not Another Framework - If you feel this way - this tiny library might be for you.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "scripts": {
+   "scripts": {
     "build": "tsc --project tsconfig.json",
     "build2": "rollup --config",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Flemming Hansen",
   "license": "MIT",
-  "type": "module",
   "devDependencies": {
     "@types/node": "^20.12.11",
     "typescript": "5.4.5"

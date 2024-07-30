@@ -1,3 +1,2 @@
 export { define, ShadowElement } from "./wcshadow";
-
-export { Store } from "./store"
+export { Store } from "./store";
