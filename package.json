@@ -1,9 +1,24 @@
 {
   "name": "@ognaf/core",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Oh God Not Another Framework - If you feel this way - this tiny library might be for you.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "files": [
+    "/lib"
+  ],
+  "keywords": [
+    "webcomponents",
+    "web components",
+    "use the platform",
+    "reactive",
+    "shadowdom",
+    "client side"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Bastardly/ognaf-core.git"
+  },
    "scripts": {
     "build": "tsc --project tsconfig.json",
     "build2": "rollup --config",

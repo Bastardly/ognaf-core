@@ -42,7 +42,7 @@ export class ShadowElement extends HTMLElement {
  * define('custom-name', class extends ShadowElement { ... })
  * @returns {string} name used to define custom component
  * @example 
- * import { define } from "@ognaf/core";
+ * import { define, ShadowElement } from "@ognaf/core";
 
  * define("hello-world", class extends ShadowElement {
     constructor() {
