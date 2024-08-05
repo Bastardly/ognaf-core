@@ -1,6 +1,6 @@
 # Oh God Not Another Framework (OGNAF)
 
-OGNAF is a tiny clientside library that builds on the KISS principle (Keep It Simple, Stupid).
+OGNAF is a tiny clientside library that aims to make it easier to used Web Components. Unlike nasty frameworks, it builds on the KISS principle (Keep It Simple, Stupid).
 
 # Why use OGNAF?
 OGNAF uses the bare-bone power of the modern browser - it just makes using it a little easier.
@@ -48,7 +48,7 @@ The define helper only define the custom element if it does not already exist. O
 ```
 
 ### Options (not recommended)
-You can apply variants components existing components by using extends as an option.
+You can apply variants to components by using options.
 
 However, using the extends option is NOT recommended because the 'is' property is [not supported by Safari](https://caniuse.com/mdn-html_global_attributes_is)
 
@@ -107,7 +107,7 @@ define('local-counter', class extends ShadowElement {
             </style>
         `
 
-        // Here we append countButton directly to the shadowDom
+        // Here we append countButton directly to the shadowRoot
         this.shadow.appendChild(this.countButton)
         this.countButton.innerText = this.getCountText();
         this.countButton.onclick = () => {
@@ -289,7 +289,7 @@ import { define, ShadowElement, Store } from "@ognaf/core";
 const store = new Store<Record<string, number>>({});
 
 // Services can be reused across multiple components, and it removes logic from the components, 
-// making them a lot cleaner.
+// making them a lot cleaner. A service can be individual service functions, a state holding class or an object.
 
 const countService = {
     add: (storeKey: string, amount: number) => {
@@ -349,7 +349,7 @@ define('better-counter', class extends ShadowElement {
         `
         // Here we append the button instead of writing it to the template. 
         // This way we ensure that it's never undefined, and therefore we can avoid
-        // a condition in the subscribtion method.
+        // a condition in the subscription method.
         this.shadow.appendChild(this.countButton)
         this.countButton.innerText = countService.getCountText(this.storeKey);
         this.countButton.onclick = () => countService.add(this.storeKey, 1);
