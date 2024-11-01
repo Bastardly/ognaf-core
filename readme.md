@@ -1,7 +1,7 @@
 # Deprecated
 I've chosen to rewrite this repo as a new repo [@flemminghansen/wc-store](https://github.com/Bastardly/wc-store). This doesn't mean that this repo will stop working. In fact, it should be able to survive for years to come, but I won't be adding any features to it.
 
-The reason for this change, is that I've stopped using ShadowDom in my projects because of accessibility issues. Furthermore, I've rewritten the store to use an AbortController instead of the unsubscribe token. This means that I can share the abort signal across multiple stores, which means that I can create a StoreElement that handles this automatically. All in all, it's just a better solution.
+The reason for this change, is that I've stopped using ShadowDom in my projects because of accessibility issues. Furthermore, I've rewritten the store to use an AbortController instead of the unsubscribe token. This means that I can share the abort signal across multiple stores, which means that I can create a StoreElement that handles this automatically. All in all, it's just a better but different solution [@flemminghansen/wc-store](https://github.com/Bastardly/wc-store)
 
 Lastly the name, OGNAF - I really butched that one didn't I? :D
 
